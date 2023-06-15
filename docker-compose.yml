@@ -7,10 +7,6 @@ volumes:
     driver: local
 
 networks:
-  test-project-network:
-    external:
-      name: test-project-network
-
   local-network:
     driver: bridge
 
@@ -36,7 +32,7 @@ services:
       DATABASE_URL: postgres://postgres:password@db:5432/postgres
       TORTOISE_TEST_DB: postgres://postgres:password@db:5432/test_{}
       PRE_COMMIT_HOME: /cache/.pre-commit
-      PROJECT_NAME: contacts-controller
+      PROJECT_NAME: test-project
       SECRET_KEY: "wHrekwqeEi6NF3pTPorWZ97lTXdegJRSz1hiaEn9rhQ="
     volumes:
       - .:/app:delegated
@@ -47,5 +43,4 @@ services:
     depends_on:
       - db
     networks:
-      - test-project-network
       - local-network

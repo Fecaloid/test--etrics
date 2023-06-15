@@ -2,7 +2,6 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 from fastapi.exceptions import RequestValidationError
-from fastapi_pagination import add_pagination
 
 from apps.common.middlewares.utils import init_middlewares
 from apps.database import init_database
@@ -25,7 +24,6 @@ app.add_exception_handler(HTTPException, http_exception_handler)
 init_routers(app)
 init_middlewares(app)
 init_database(app)
-add_pagination(app)
 
 
 if __name__ == '__main__':

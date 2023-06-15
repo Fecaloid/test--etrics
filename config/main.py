@@ -1,6 +1,5 @@
 import importlib
 import logging.config
-import os
 import sys
 
 from pydantic import BaseSettings
@@ -34,8 +33,7 @@ class Settings(BaseSettings):
     INSTALLED_APPS: list[str] = [
         'apps.common',
         'apps.healthcheck',
-        'apps.contacts',
-        'apps.external',
+        'apps.metric',
         'aerich',
     ]
 
@@ -167,6 +165,7 @@ class Settings(BaseSettings):
     JWT_SECRET: str = ''
     JWT_ALGORITHM: str = 'HS256'
     JWT_EXPIRES_IN_SECONDS: int = 60 * 60
+
 
 settings = Settings()
 logging.config.dictConfig(settings.LOGGING)

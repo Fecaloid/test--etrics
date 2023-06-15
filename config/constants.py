@@ -12,6 +12,10 @@ PRODUCTION_ENVIRONMENT = 'production'
 # API Tags
 TAG_COMMON = 'Common'
 TAG_PROBES = 'Probes'
+TAG_METRIC = 'Metric'
+
+# Other
+P99_DEFAULT_VALUE = 99
 
 
 def get_default_environment():
