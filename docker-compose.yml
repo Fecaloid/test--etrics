@@ -1,0 +1,51 @@
+version: '3.8'
+
+volumes:
+  cache:
+    driver: local
+  pg_data:
+    driver: local
+
+networks:
+  test-project-network:
+    external:
+      name: test-project-network
+
+  local-network:
+    driver: bridge
+
+services:
+  db:
+    image: library/postgres:13
+    volumes:
+      - "pg_data:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - local-network
+    ports:
+      - "5432:5432"
+
+  test_project:
+    build: .
+    environment:
+      DEBUG: "on"
+      ENVIRONMENT: development
+      DATABASE_URL: postgres://postgres:password@db:5432/postgres
+      TORTOISE_TEST_DB: postgres://postgres:password@db:5432/test_{}
+      PRE_COMMIT_HOME: /cache/.pre-commit
+      PROJECT_NAME: contacts-controller
+      SECRET_KEY: "wHrekwqeEi6NF3pTPorWZ97lTXdegJRSz1hiaEn9rhQ="
+    volumes:
+      - .:/app:delegated
+      - cache:/cache:delegated
+    command: uvicorn apps.app:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - test-project-network
+      - local-network

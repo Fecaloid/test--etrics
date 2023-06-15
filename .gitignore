@@ -1,0 +1,65 @@
+### Python template
+common_source/data/tmp/
+docker/rec.la-certificates/*
+!docker/rec.la-certificates/.gitkeep
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+pytest.ini
+.mypy_cache/
+cover/
+
+# Translations
+*.mo
+*.pot
+
+*.log
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Environments
+.env
+.env.*
+!.env.test
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# mkdocs documentation
+/site
+
+# pytype static type analyzer
+.pytype/
+
+### JetBrains IDE
+.idea/
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+.DS_Store
+invalid_user_profiles.json
