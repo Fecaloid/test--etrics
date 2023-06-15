@@ -21,9 +21,9 @@ async def set_metric(params: MetricRequestSerializer = Depends()):
 
 @router.get('/api/metric/{service_name}', response_model=MetricStatisticResponseSerializer)
 async def get_metric_statistic(service_name: str):
-    metrics = Metric.filter(service_name=service_name)
-    data = (
-        await metrics.annotate(
+    metrics = (
+        await Metric.filter(service_name=service_name)
+        .annotate(
             count=Count('response_time_ms', 'count'),
             min_time=Min('response_time_ms', 'min_time'),
             max_time=Max('response_time_ms', 'max_time'),
@@ -43,8 +43,8 @@ async def get_metric_statistic(service_name: str):
     p99_count = {item['path']: item['count'] for item in percentage_data}
 
     response = []
-    for item in data:
+    for item in metrics:
         p99 = round(p99_count[item['path']] / item['count'] * 100, 2)
         response.append(MetricStatisticSerializer(**item, p99=p99))
 
-    return MetricStatisticResponseSerializer(count=len(data), items=response)
+    return MetricStatisticResponseSerializer(count=len(metrics), items=response)
